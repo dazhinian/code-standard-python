@@ -1,0 +1,24 @@
+#!/usr/bin/env sh
+# code-standard-python pre-commit：只校验本次暂存的 Python 文件。
+# 安装：cp hooks/pre-commit .git/hooks/pre-commit && chmod +x .git/hooks/pre-commit
+# 跳过（不推荐）：git commit --no-verify
+
+set -u
+
+ROOT=$(git rev-parse --show-toplevel 2>/dev/null) || exit 0
+cd "$ROOT" || exit 0
+
+if command -v csp >/dev/null 2>&1; then
+    csp check --root . --staged --strict
+else
+    python -m code_standard_v2 check --root . --staged --strict
+fi
+STATUS=$?
+
+if [ "$STATUS" -ne 0 ]; then
+    echo ""
+    echo "[csp] 提交已阻止：先按上面的 file:line 修正，再重新 commit。"
+    echo "     跳过本次校验（不推荐）：git commit --no-verify"
+    exit 1
+fi
+exit 0

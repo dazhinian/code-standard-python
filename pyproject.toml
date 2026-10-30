@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "code-standard-python"
+version = "0.1.0"
+description = "声明与事实分离、可对账的 Python 代码卡片工具（code-standard-python）"
+requires-python = ">=3.10"
+dependencies = []
+
+[project.scripts]
+csp = "code_standard_v2.cli:main"
+cs2 = "code_standard_v2.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+code_standard_v2 = ["data/*.md", "data/skill/*/*", "data/skill/*/*/*"]

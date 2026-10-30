@@ -1,0 +1,9 @@
+.code-standard/
+.mypy_cache/
+dist/
+build/
+*.spec
+__pycache__/
+*.pyc
+.venv/
+.skilltest/
